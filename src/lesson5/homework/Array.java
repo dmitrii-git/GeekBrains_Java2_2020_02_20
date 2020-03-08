@@ -12,9 +12,7 @@ public class Array {
         }
         System.currentTimeMillis();
         System.out.println(System.currentTimeMillis() - a);
-
     }
-
     public static void array2() {
         final int SIZE = 10000000;
         final int HALF = SIZE / 2;
