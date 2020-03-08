@@ -1,6 +1,6 @@
 package lesson5.homework;
 
-public class array {
+public class Array {
 
     public static void array1() {
         final int SIZE = 10000000;
