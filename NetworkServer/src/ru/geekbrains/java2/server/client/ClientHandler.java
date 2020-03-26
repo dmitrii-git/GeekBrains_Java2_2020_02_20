@@ -10,6 +10,8 @@ import ru.geekbrains.java2.server.NetworkServer;
 import java.io.*;
 import java.net.Socket;
 
+
+
 public class ClientHandler {
 
     private final NetworkServer networkServer;
@@ -36,12 +38,12 @@ public class ClientHandler {
 
             new Thread(() -> {
                 try {
-                    authentication();
-                    readMessages();
+                    ClientHandler.this.authentication();
+                    ClientHandler.this.readMessages();
                 } catch (IOException e) {
                     System.out.println("Соединение с клиентом " + nickname + " было закрыто!");
                 } finally {
-                    closeConnection();
+                    ClientHandler.this.closeConnection();
                 }
             }).start();
 
@@ -101,6 +103,13 @@ public class ClientHandler {
     }
 
     private void authentication() throws IOException {
+        new Thread(() -> {
+            try {
+                Thread.sleep(120000);
+                ClientHandler.this.closeConnection();
+            } catch (InterruptedException e) {
+            }
+        }).start();
         while (true) {
             Command command = readCommand();
             if (command == null) {
@@ -116,7 +125,6 @@ public class ClientHandler {
             }
         }
     }
-
     private boolean processAuthCommand(Command command) throws IOException {
         AuthCommand commandData = (AuthCommand) command.getData();
         String login = commandData.getLogin();
